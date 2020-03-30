@@ -71,10 +71,10 @@ button{
 .box-user-error{
     background-color:rgba(94, 94, 233, 0.986);
     position: absolute;
-    top:25%;
-    left:30%;
-    max-width: 30%;
-    min-width: 30%;
+    top:5%;
+    left:25%;
+    max-width: 50%;
+    min-width: 50%;
     width: 30%;
     max-height:25%;
     height: 25%;
