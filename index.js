@@ -1,30 +1,20 @@
 var express = require('express');
-var socket = require('socket.io');
-
-// App setup
+var server = http.Server(app);
 var app = express();
-var server = app.listen(3000, function(){
-    console.log('listening for requests on port 4000,');
+var http = require('http');
+
+var PORT = process.env.PORT || 5000;
+
+app.use(express.static('client'));
+
+server.listen(PORT, function() {
+  console.log('Chat server running');
 });
 
-// Static files
-app.use(express.static('public'));
+var io = require('socket.io')(server);
 
-// Socket setup & pass server
-var io = socket(server);
-io.on('connection', (socket) => {
-
-    console.log('made socket connection', socket.id);
-
-    // Handle chat event
-    socket.on('chat', function(data){
-        // console.log(data);
-        io.sockets.emit('chat', data);
-    });
-
-    // Handle typing event
-    socket.on('typing', function(data){
-        socket.broadcast.emit('typing', data);
-    });
-
+io.on('connection', function(socket) {
+  socket.on('message', function(msg) {
+    io.emit('message', msg);
+  });
 });
